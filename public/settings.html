@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>설정 · Reels Downloader</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-badge">⬇</div>
+      <div class="brand-title">Reels Downloader · 설정</div>
+    </div>
+    <div class="userbox">
+      <a href="index.html" class="btn btn-ghost" style="width:auto; padding:8px 14px; text-decoration:none;">메인으로</a>
+      <button class="btn btn-ghost" id="logoutBtn" style="width:auto; padding:8px 14px;">로그아웃</button>
+    </div>
+  </div>
+
+  <div class="container" style="max-width:560px;">
+    <div class="hero" style="text-align:left;">
+      <h1 style="font-size:20px;">인스타그램 계정 연결</h1>
+      <p>비공개 계정 릴스 조회나 "계정 전체 수집" 기능을 안정적으로 쓰려면 본인 인스타그램 계정으로 로그인해두세요.</p>
+    </div>
+
+    <div id="statusBox" class="status-box"></div>
+    <div id="errorBanner" class="error-box"></div>
+
+    <h2 style="font-size:15px; margin: 26px 0 10px;">방법 1. 아이디/비밀번호로 로그인</h2>
+    <p style="color:var(--text-dim); font-size:12.5px; margin:0 0 14px;">2단계 인증(2FA)이 꺼져 있는 계정에서만 동작합니다.</p>
+    <form id="igForm" class="auth-card" style="max-width:none; padding:24px;">
+      <div class="field">
+        <label>인스타그램 아이디</label>
+        <input type="text" id="igUsername" autocomplete="off" required />
+      </div>
+      <div class="field">
+        <label>인스타그램 비밀번호</label>
+        <input type="password" id="igPassword" autocomplete="new-password" required />
+      </div>
+      <button class="btn" type="submit" id="saveBtn">저장하고 연결</button>
+    </form>
+    <button class="btn btn-ghost" id="disconnectBtn" style="max-width:none; margin-top:12px; display:none;">아이디/비밀번호 연결 해제</button>
+
+    <h2 style="font-size:15px; margin: 34px 0 10px;">방법 2. 쿠키 파일로 연결 (2단계 인증 계정 추천)</h2>
+    <p style="color:var(--text-dim); font-size:12.5px; margin:0 0 14px; line-height:1.6;">
+      브라우저에서 인스타그램에 로그인(2FA 포함)한 뒤, "Get cookies.txt LOCALLY" 같은 확장 프로그램으로
+      쿠키를 내보내서 그 파일 내용을 아래에 붙여넣거나 업로드하세요. 방법 1보다 우선 적용됩니다.
+    </p>
+    <form id="cookieForm" class="auth-card" style="max-width:none; padding:24px;">
+      <div class="field">
+        <label>cookies.txt 파일 선택 (선택사항)</label>
+        <input type="file" id="cookieFileInput" accept=".txt" />
+      </div>
+      <div class="field">
+        <label>또는 cookies.txt 내용 붙여넣기</label>
+        <textarea id="cookieTextInput" rows="6" placeholder="# Netscape HTTP Cookie File&#10;.instagram.com&#9;TRUE&#9;/&#9;TRUE&#9;...">
+</textarea>
+      </div>
+      <button class="btn" type="submit" id="cookieSaveBtn">쿠키 저장</button>
+    </form>
+    <button class="btn btn-ghost" id="cookieDisconnectBtn" style="max-width:none; margin-top:12px; display:none;">쿠키 연결 해제</button>
+
+    <div class="footnote" style="text-align:left; margin-top:30px;">
+      비밀번호와 쿠키는 이 NAS의 데이터베이스/파일로만 저장되며, 다운로드할 때 yt-dlp에 전달하는 용도로만 사용됩니다.
+      둘 다 설정하지 않아도 앱은 정상 동작하며, 이 경우 로그인 없이 공개 콘텐츠에 접근합니다.
+    </div>
+  </div>
+
+  <script src="settings.js"></script>
+</body>
+</html>

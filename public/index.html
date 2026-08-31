@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reels Downloader</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-badge">⬇</div>
+      <div class="brand-title">Reels Downloader</div>
+    </div>
+    <div class="userbox">
+      <a href="settings.html" class="btn btn-ghost" style="width:auto; padding:8px 14px; text-decoration:none;">설정</a>
+      <a id="adminLink" href="admin.html" class="btn btn-ghost" style="width:auto; padding:8px 14px; display:none; text-decoration:none;">관리자</a>
+      <div class="avatar" id="avatarInitial">?</div>
+      <span id="usernameLabel"></span>
+      <button class="btn btn-ghost" id="logoutBtn" style="width:auto; padding:8px 14px;">로그아웃</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="hero">
+      <h1>릴스 · 쇼츠 링크를 붙여넣으세요</h1>
+      <p>줄바꿈으로 여러 링크를 한번에 넣을 수 있어요. 화질과 오디오 추출 옵션도 고를 수 있습니다.</p>
+    </div>
+
+    <form id="downloadForm" class="download-panel">
+      <div class="mode-tabs">
+        <button type="button" class="mode-tab active" data-mode="links">링크 입력</button>
+        <button type="button" class="mode-tab" data-mode="profile">계정 전체 수집</button>
+      </div>
+
+      <textarea id="urlInput" rows="3" placeholder="https://www.instagram.com/reel/...&#10;https://www.tiktok.com/...&#10;(줄바꿈으로 여러 개 입력 가능)" required></textarea>
+
+      <div id="profileFields" style="display:none;">
+        <input type="url" id="profileUrlInput" placeholder="https://www.instagram.com/계정명/reels/" />
+        <div class="hint">비공개 계정이거나 목록이 안 불러와지면 README의 로그인 쿠키 설정을 확인하세요.</div>
+      </div>
+
+      <div class="panel-row">
+        <select id="qualitySelect">
+          <option value="best">최고 화질</option>
+          <option value="1080">1080p</option>
+          <option value="720">720p</option>
+          <option value="480">480p</option>
+          <option value="360">360p</option>
+          <option value="audio">오디오만 (mp3)</option>
+        </select>
+        <select id="limitSelect" style="display:none;">
+          <option value="10">최근 10개</option>
+          <option value="20" selected>최근 20개</option>
+          <option value="50">최근 50개</option>
+          <option value="100">최근 100개</option>
+          <option value="200">최근 200개</option>
+        </select>
+        <button class="btn" type="submit" id="downloadBtn">다운로드</button>
+      </div>
+    </form>
+
+    <div id="errorBanner" class="error-box" style="max-width:700px;margin:-10px auto 30px;"></div>
+
+    <div class="toolbar">
+      <input type="text" id="searchInput" placeholder="제목으로 검색..." />
+      <select id="sortSelect">
+        <option value="new">최신순</option>
+        <option value="old">오래된순</option>
+        <option value="name">이름순</option>
+        <option value="size">용량순</option>
+      </select>
+    </div>
+
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="emptyState" style="display:none;">아직 다운로드한 영상이 없습니다.</div>
+
+    <div class="footnote">
+      개인 소장 목적으로만 사용하세요. 저작권이 있는 콘텐츠를 재배포하는 것은 각 플랫폼 이용약관 및 관련 법령에 위배될 수 있습니다.
+    </div>
+  </div>
+
+  <div class="player-overlay" id="playerOverlay">
+    <div class="player-box">
+      <button class="player-close" id="playerClose">✕</button>
+      <video id="playerVideo" controls autoplay></video>
+      <audio id="playerAudio" controls autoplay style="display:none; width:100%;"></audio>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

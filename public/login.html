@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>로그인 · Reels Downloader</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <div class="brand">
+        <div class="brand-badge">⬇</div>
+        <div>
+          <div class="brand-title">Reels Downloader</div>
+          <div class="brand-sub">개인용 릴스/쇼츠 다운로더</div>
+        </div>
+      </div>
+
+      <div class="error-box" id="errorBox"></div>
+
+      <form id="loginForm">
+        <div class="field">
+          <label>아이디</label>
+          <input type="text" id="username" autocomplete="username" required />
+        </div>
+        <div class="field">
+          <label>비밀번호</label>
+          <input type="password" id="password" autocomplete="current-password" required />
+        </div>
+        <button class="btn" type="submit" id="submitBtn">로그인</button>
+      </form>
+
+      <div class="switch-link">
+        계정이 없으신가요? <a href="register.html">회원가입</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const errorBox = document.getElementById('errorBox');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // 이미 로그인 되어있으면 메인으로
+    fetch('/api/auth/me').then(r => { if (r.ok) location.href = 'index.html'; });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorBox.classList.remove('show');
+      submitBtn.disabled = true;
+      submitBtn.textContent = '로그인 중...';
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: document.getElementById('username').value.trim(),
+            password: document.getElementById('password').value
+          })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '로그인에 실패했습니다.');
+        location.href = 'index.html';
+      } catch (err) {
+        errorBox.textContent = err.message;
+        errorBox.classList.add('show');
+        submitBtn.disabled = false;
+        submitBtn.textContent = '로그인';
+      }
+    });
+  </script>
+</body>
+</html>
