@@ -1,4 +1,4 @@
-# Reels Downloader (개인용)
+# Reels Downloader
 
 인스타그램 릴스 / 틱톡 / 유튜브 쇼츠 등 다양한 플랫폼의 영상을 개인용으로 다운로드하는 셀프호스팅 웹앱입니다.
 로그인/회원가입 페이지가 있고, 다운로드는 서버에서 [yt-dlp](https://github.com/yt-dlp/yt-dlp)로 처리합니다.
